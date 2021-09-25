@@ -1,4 +1,4 @@
-package com.hzt.base.program
+package com.hzt.base.common
 
 import android.opengl.GLES30
 import com.hzt.base.util.FileUtil

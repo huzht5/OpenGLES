@@ -16,7 +16,6 @@ class MainActivity : BaseActivity() {
 
         val mainTriangleButton: Button = findViewById(R.id.main_triangle_button)
         mainTriangleButton.setOnClickListener{
-            Toast.makeText(this, "吐司", Toast.LENGTH_SHORT).show()
             TriangleActivity.actionStart(this);
         }
     }

@@ -4,7 +4,7 @@ import android.opengl.GLES30
 import android.opengl.GLSurfaceView
 import com.hzt.base.common.Constants
 import com.hzt.base.mesh.TriangleMesh
-import com.hzt.base.program.ShaderProgram
+import com.hzt.base.common.ShaderProgram
 import com.hzt.base.util.LogUtil
 import javax.microedition.khronos.egl.EGLConfig
 import javax.microedition.khronos.opengles.GL10
@@ -68,9 +68,8 @@ class TriangleRenderer : GLSurfaceView.Renderer {
     override fun onDrawFrame(gl: GL10?) {
         GLES30.glEnable(GLES30.GL_CULL_FACE)
         GLES30.glClearColor(0.0F, 0.0F, 0.0F, 1.0F)
-        GLES30.glClear(GLES30.GL_COLOR_BUFFER_BIT.or(GLES30.GL_DEPTH_BUFFER_BIT))
+        GLES30.glClear(GLES30.GL_COLOR_BUFFER_BIT or GLES30.GL_DEPTH_BUFFER_BIT)
 
-        mShaderProgram.use()
         GLES30.glBindVertexArray(mVAO[0])
         GLES30.glDrawElements(GLES30.GL_TRIANGLES, TriangleMesh.INDEX_ARRAY.size, GLES30.GL_UNSIGNED_INT, 0)
         GLES30.glBindVertexArray(0)
