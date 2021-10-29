@@ -22,18 +22,19 @@ class TriangleRenderer : GLSurfaceView.Renderer {
     override fun onSurfaceCreated(gl: GL10?, config: EGLConfig?) {
         LogUtil.d(TAG, "[onSurfaceCreated]")
         val triangleMesh = TriangleMesh()
-        mShaderProgram = ShaderProgram("shader/triangle/vertex.glsl", "shader/triangle/fragment.glsl")
-        mShaderProgram.use()
 
-        val positionHandle = mShaderProgram.getAttributeLocation("aPosition")
-        val totalSize = Constants.VERTEX_COORDINATE_SIZE
+        //mShaderProgram.use()
+
         if (mVAO[0] == 0) {
             GLES30.glGenVertexArrays(1, mVAO, 0)
         }
-        GLES30.glBindVertexArray(mVAO[0])
         if (mVBO[0] == 0) {
             GLES30.glGenBuffers(1, mVBO, 0)
         }
+        if (mEBO[0] == 0) {
+            GLES30.glGenBuffers(1, mEBO, 0)
+        }
+
         GLES30.glBindBuffer(GLES30.GL_ARRAY_BUFFER, mVBO[0])
         GLES30.glBufferData(GLES30.GL_ARRAY_BUFFER,
             TriangleMesh.VERTEX_ARRAY.size * Constants.BYTES_PER_FLOAT,
@@ -41,23 +42,23 @@ class TriangleRenderer : GLSurfaceView.Renderer {
         GLES30.glBufferSubData(GLES30.GL_ARRAY_BUFFER, 0,
             TriangleMesh.VERTEX_ARRAY.size * Constants.BYTES_PER_FLOAT, triangleMesh.mVertexBuffer)
 
-        GLES30.glEnableVertexAttribArray(positionHandle)
-        GLES30.glVertexAttribPointer(positionHandle, Constants.VERTEX_COORDINATE_SIZE, GLES30.GL_FLOAT,
-            false, totalSize * Constants.BYTES_PER_FLOAT, 0)
-
-        if (mEBO[0] == 0) {
-            GLES30.glGenBuffers(1, mEBO, 0)
-        }
+        GLES30.glBindVertexArray(mVAO[0])
         GLES30.glBindBuffer(GLES30.GL_ELEMENT_ARRAY_BUFFER, mEBO[0])
         GLES30.glBufferData(GLES30.GL_ELEMENT_ARRAY_BUFFER,
             TriangleMesh.INDEX_ARRAY.size * Constants.BYTES_PER_INT,
             null, GLES30.GL_STATIC_DRAW)
         GLES30.glBufferSubData(GLES30.GL_ELEMENT_ARRAY_BUFFER, 0,
             TriangleMesh.INDEX_ARRAY.size * Constants.BYTES_PER_INT, triangleMesh.mIndexBuffer)
+
+        GLES30.glEnableVertexAttribArray(0)
+        val totalSize = Constants.VERTEX_COORDINATE_SIZE
+        GLES30.glVertexAttribPointer(0, Constants.VERTEX_COORDINATE_SIZE, GLES30.GL_FLOAT,
+            false, totalSize * Constants.BYTES_PER_FLOAT, 0)
+
         GLES30.glBindBuffer(GLES30.GL_ARRAY_BUFFER, 0)
         GLES30.glBindVertexArray(0)
 
-        GLES30.glDisableVertexAttribArray(positionHandle)
+        mShaderProgram = ShaderProgram("shader/triangle/vertex.glsl", "shader/triangle/fragment.glsl")
     }
 
     override fun onSurfaceChanged(gl: GL10?, width: Int, height: Int) {
@@ -70,6 +71,7 @@ class TriangleRenderer : GLSurfaceView.Renderer {
         GLES30.glClearColor(0.0F, 0.0F, 0.0F, 1.0F)
         GLES30.glClear(GLES30.GL_COLOR_BUFFER_BIT or GLES30.GL_DEPTH_BUFFER_BIT)
 
+        mShaderProgram.use()
         GLES30.glBindVertexArray(mVAO[0])
         GLES30.glDrawElements(GLES30.GL_TRIANGLES, TriangleMesh.INDEX_ARRAY.size, GLES30.GL_UNSIGNED_INT, 0)
         GLES30.glBindVertexArray(0)

@@ -4,15 +4,17 @@ import android.opengl.GLES30
 import com.hzt.base.util.FileUtil
 import com.hzt.base.util.LogUtil
 
-class ShaderProgram(vertexPath: String, fragmentPath: String) {
-    var mProgramId: Int
+class ShaderProgram(vertexSource: String, fragmentSource: String) {
+    private val mVertexSource = vertexSource
+    private val mFragmentSource = fragmentSource
+    var mProgramId = 0
 
     companion object {
         private const val TAG = "ShaderProgram"
     }
 
-    init {
-        mProgramId = createGlProgram(FileUtil.getTextFromAssets(vertexPath), FileUtil.getTextFromAssets(fragmentPath))
+    fun createGlProgram() {
+        mProgramId = createGlProgram(mVertexSource, mFragmentSource)
     }
 
     fun use() = GLES30.glUseProgram(mProgramId)
