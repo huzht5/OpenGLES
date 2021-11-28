@@ -1,14 +1,14 @@
 package com.hzt.opengles
 
-import android.app.AlertDialog
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
 import com.hzt.base.activity.BaseActivity
 import com.hzt.base.util.showToast
-import com.hzt.base.view.ColorPickerView
-import com.hzt.opengles.triangle.TriangleActivity
+import com.hzt.opengles.triangle.firsttriangle.FirstTriangleActivity
+import com.hzt.opengles.triangle.singlecolortriangle.SingleColorTriangleActivity
+import com.hzt.opengles.triangle.tricolortriangle.TricolorTriangleActivity
 
 class MainActivity : BaseActivity() {
 
@@ -16,14 +16,19 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val mainTriangleButton: Button = findViewById(R.id.main_triangle_button)
-        mainTriangleButton.setOnClickListener{
-            TriangleActivity.actionStart(this)
+        val firstTriangleButton: Button = findViewById(R.id.first_triangle_button)
+        firstTriangleButton.setOnClickListener{
+            FirstTriangleActivity.actionStart(this)
         }
 
-        val mainTestButton: Button = findViewById(R.id.main_test_button)
-        mainTestButton.setOnClickListener{
-            ColorTestActivity.actionStart(this)
+        val singleColorTriangleButton: Button = findViewById(R.id.single_color_triangle_button)
+        singleColorTriangleButton.setOnClickListener{
+            SingleColorTriangleActivity.actionStart(this)
+        }
+
+        val tricolorTriangleButton: Button = findViewById(R.id.tricolor_triangle_button)
+        tricolorTriangleButton.setOnClickListener{
+            TricolorTriangleActivity.actionStart(this)
         }
     }
 
@@ -35,17 +40,8 @@ class MainActivity : BaseActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.add_item -> "你点击了新增".showToast()
-            R.id.remove_item -> showDialog()
+            R.id.remove_item -> "你点击了移除".showToast()
         }
         return true
-    }
-
-    private fun showDialog() {
-        val builder = AlertDialog.Builder(this)
-        val colorPickerView = ColorPickerView(this, null)
-        builder.setView(colorPickerView)
-        builder.setPositiveButton("好的") { _, _ -> }
-        val dialog = builder.create()
-        dialog.show()
     }
 }

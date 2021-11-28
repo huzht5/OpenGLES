@@ -17,6 +17,9 @@ import kotlin.math.min
 import kotlin.math.roundToInt
 
 class ColorPickerPicture(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
+    companion object {
+        private const val TAG = "ColorPickerPicture"
+    }
     private var mCallback: ColorPickerCallback? = null
     private var mThread: HandlerThread? = null
     private var mHandler: Handler? = null
@@ -42,10 +45,6 @@ class ColorPickerPicture(context: Context?, attrs: AttributeSet?) : View(context
     private var mCount = 0
     private var mColorStr = "#000000"
     private var mPrepared = false
-
-    companion object {
-        private const val TAG = "ColorPickerPicture"
-    }
 
     init {
         mPaint.isAntiAlias = true
@@ -112,6 +111,10 @@ class ColorPickerPicture(context: Context?, attrs: AttributeSet?) : View(context
 
     private fun updateColor() {
         mColor = Color.rgb(mRed, mGreen, mBlue)
+        updateColorStr()
+    }
+
+    private fun updateColorStr() {
         var redStr = mRed.toString(16)
         if (redStr.length == 1) {
             redStr = "0$redStr"
@@ -211,6 +214,18 @@ class ColorPickerPicture(context: Context?, attrs: AttributeSet?) : View(context
         }
     }
 
+    fun setColor(color: Int) {
+        if (mColor != color) {
+            mColor = color
+            mRed = Color.red(mColor)
+            mGreen = Color.green(mColor)
+            mBlue = Color.blue(mColor)
+            updateColorStr()
+            calculateHSV()
+            onColorChange()
+        }
+    }
+
     fun getHue() = mHSV[0].roundToInt()
 
     fun getSaturation() = (mHSV[1] * 100.0F).roundToInt()
@@ -289,7 +304,7 @@ class ColorPickerPicture(context: Context?, attrs: AttributeSet?) : View(context
                 mCanvas.drawRect(mColorRectF, mColorPaint)
             }
         }
-        mCount--;
+        mCount--
         if (mCount == 0) {
             mCopyCanvas.drawColor(0x00000000)
             mCopyCanvas.drawBitmap(mBitmap, null, mRect, mPaint)

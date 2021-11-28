@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".triangle.tricolortriangle.TricolorTriangleActivity"
+    android:keepScreenOn="true">
+
+    <com.hzt.opengles.triangle.tricolortriangle.TricolorTriangleGLView
+        android:id="@+id/tricolor_triangle_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <Button
+        android:id="@+id/change_up_color_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="改变上顶点颜色"
+        app:layout_constraintTop_toBottomOf="@+id/tricolor_triangle_view"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <Button
+        android:id="@+id/change_left_color_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="改变左顶点颜色"
+        app:layout_constraintTop_toBottomOf="@+id/change_up_color_button"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <Button
+        android:id="@+id/change_right_color_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="改变右顶点颜色"
+        app:layout_constraintTop_toBottomOf="@+id/change_left_color_button"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

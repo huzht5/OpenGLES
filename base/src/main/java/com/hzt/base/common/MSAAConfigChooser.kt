@@ -6,7 +6,6 @@ import javax.microedition.khronos.egl.EGLConfig
 import javax.microedition.khronos.egl.EGLDisplay
 
 class MSAAConfigChooser : GLSurfaceView.EGLConfigChooser {
-
     companion object {
         private const val EGL_LEVEL = 0
         private const val EGL_RENDERABLE_TYPE = 4
@@ -36,10 +35,6 @@ class MSAAConfigChooser : GLSurfaceView.EGLConfigChooser {
         val configs = arrayOfNulls<EGLConfig>(1)
         val configCounts = IntArray(1)
         egl?.eglChooseConfig(display, attributes, configs, 1, configCounts)
-        if (configCounts[0] == 0) {
-            return null
-        } else {
-            return configs[0]
-        }
+        return if (configCounts[0] == 0) null else configs[0]
     }
 }

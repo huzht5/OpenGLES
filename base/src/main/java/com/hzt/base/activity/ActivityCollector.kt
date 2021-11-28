@@ -16,7 +16,7 @@ object ActivityCollector {
     }
 
     fun finishAllActivities() {
-        LogUtil.i(TAG, "[finishAllActivities]");
+        LogUtil.i(TAG, "[finishAllActivities]")
         for (activity in activities) {
             if (!activity.isFinishing) {
                 activity.finish()

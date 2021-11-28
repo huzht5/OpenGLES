@@ -4,6 +4,10 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/AndroidStudio/Project/OpenGLES/app/src/main/res/layout/activity_color_test.xml" value="0.3536458333333333" />
+        <entry key="..\:/AndroidStudio/Project/OpenGLES/app/src/main/res/layout/activity_first_triangle.xml" value="0.3536458333333333" />
+        <entry key="..\:/AndroidStudio/Project/OpenGLES/app/src/main/res/layout/activity_main.xml" value="0.2726449275362319" />
+        <entry key="..\:/AndroidStudio/Project/OpenGLES/app/src/main/res/layout/activity_single_color_triangle.xml" value="0.3536458333333333" />
+        <entry key="..\:/AndroidStudio/Project/OpenGLES/app/src/main/res/layout/activity_tricolor_triangle.xml" value="0.3536458333333333" />
         <entry key="..\:/AndroidStudio/Project/OpenGLES/base/src/main/res/layout/color_picker.xml" value="0.35443037974683544" />
       </map>
     </option>
